@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-zurich/main/json-schema/university-of-zurich-token-response-schema.json",
+  "title": "SWITCH edu-ID Token Response",
+  "description": "OAuth 2.0 / OpenID Connect token response from the SWITCH edu-ID token endpoint.",
+  "type": "object",
+  "required": ["access_token", "token_type"],
+  "properties": {
+    "access_token": { "type": "string" },
+    "token_type": { "type": "string", "examples": ["Bearer"] },
+    "expires_in": { "type": "integer", "minimum": 0 },
+    "scope": { "type": "string" },
+    "id_token": { "type": "string", "description": "Signed JWT ID token, present when the openid scope is requested." },
+    "refresh_token": { "type": "string", "description": "Present when the offline_access scope is granted." }
+  },
+  "additionalProperties": false
+}

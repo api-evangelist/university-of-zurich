@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://login.eduid.ch/idp/profile/oidc/userinfo",
+    "headers": {
+      "Authorization": "Bearer eyJraWQiOiJSU0FTaWduMyIsImFsZyI6IlJTMjU2In0..."
+    }
+  },
+  "response": {
+    "sub": "f1e2d3c4-0000-4a5b-9c8d-7e6f5a4b3c2d",
+    "name": "Anna Beispiel",
+    "given_name": "Anna",
+    "family_name": "Beispiel",
+    "email": "anna.beispiel@uzh.ch",
+    "email_verified": true,
+    "locale": "de-CH",
+    "swissEduID": "https://eduid.ch/idp/uniqueid/0000-1111-2222-3333",
+    "swissEduIDAssuranceLevel": "https://eduid.ch/def/loa3",
+    "swissEduPersonMatriculationNumber": "12-345-678",
+    "swissEduPersonHomeOrganization": "uzh.ch",
+    "swissEduPersonHomeOrganizationType": "urn:schac:homeOrganizationType:ch:university",
+    "eduPersonAffiliation": ["student", "member"],
+    "eduPersonScopedAffiliation": ["student@uzh.ch", "member@uzh.ch"],
+    "eduPersonPrincipalName": "annab@uzh.ch",
+    "schacHomeOrganization": "uzh.ch",
+    "schacHomeOrganizationType": "urn:schac:homeOrganizationType:ch:university"
+  }
+}

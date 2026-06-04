@@ -1,0 +1,61 @@
+vocabulary:
+  name: University of Zurich edu-ID Identity Vocabulary
+  description: >-
+    Controlled terms observed in the SWITCH edu-ID OpenID Connect discovery
+    document and UserInfo claims used by the University of Zurich for federated
+    authentication. Terms are drawn directly from claims_supported, scopes, and
+    OAuth/OIDC endpoint semantics advertised at
+    https://login.eduid.ch/.well-known/openid-configuration
+  version: '2026-06-03'
+  terms:
+    - term: issuer
+      definition: The HTTPS URL identifying the SWITCH edu-ID OpenID Provider (https://login.eduid.ch/).
+      tags: [oidc, discovery]
+    - term: sub
+      definition: Subject identifier for the end-user; may be pairwise or public per subject_types_supported.
+      tags: [claim, identity]
+    - term: openid
+      definition: Mandatory OIDC scope requesting an ID token.
+      tags: [scope, oidc]
+    - term: offline_access
+      definition: Scope that requests a refresh_token for long-lived access.
+      tags: [scope, oauth2]
+    - term: authorization_code
+      definition: OAuth 2.0 grant type used in the interactive browser flow with PKCE.
+      tags: [grant, oauth2]
+    - term: refresh_token
+      definition: Grant type and credential used to obtain new access tokens without re-authentication.
+      tags: [grant, oauth2]
+    - term: S256
+      definition: The SHA-256 PKCE code_challenge method, the only method supported by edu-ID.
+      tags: [pkce, security]
+    - term: swissEduID
+      definition: Persistent unique SWITCH edu-ID identifier for the individual across institutions.
+      tags: [claim, switch, identity]
+    - term: swissEduIDAssuranceLevel
+      definition: Level of assurance attached to the edu-ID identity verification.
+      tags: [claim, assurance]
+    - term: swissEduPersonMatriculationNumber
+      definition: The student matriculation number at the home organization (e.g. UZH).
+      tags: [claim, student, switch]
+    - term: swissEduPersonHomeOrganization
+      definition: Domain of the user's home organization, e.g. uzh.ch.
+      tags: [claim, organization]
+    - term: eduPersonScopedAffiliation
+      definition: Affiliation value scoped to a security domain, e.g. student@uzh.ch.
+      tags: [claim, eduperson, affiliation]
+    - term: eduPersonOrcid
+      definition: The user's ORCID researcher identifier.
+      tags: [claim, research, orcid]
+    - term: schacHomeOrganization
+      definition: SCHAC attribute naming the user's home organization domain.
+      tags: [claim, schac]
+    - term: userinfo_endpoint
+      definition: Endpoint returning claims about the authenticated end-user given an access token.
+      tags: [endpoint, oidc]
+    - term: introspection_endpoint
+      definition: RFC 7662 endpoint to determine the active state and metadata of a token.
+      tags: [endpoint, oauth2]
+    - term: end_session_endpoint
+      definition: RP-initiated logout endpoint terminating the edu-ID session.
+      tags: [endpoint, oidc, logout]

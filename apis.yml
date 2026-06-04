@@ -72,6 +72,22 @@ apis:
         url: https://www.zi.uzh.ch/en/support/identity-access/eduid-faq.html
       - type: SignUp
         url: https://eduid.uzh.ch/linking/login
+      - type: OpenAPI
+        url: openapi/university-of-zurich-eduid-oidc.yaml
+      - type: x-openid-configuration
+        url: https://login.eduid.ch/.well-known/openid-configuration
+      - type: x-json-schema
+        url: json-schema/university-of-zurich-userinfo-schema.json
+      - type: x-json-structure
+        url: json-structure/university-of-zurich-userinfo-structure.json
+      - type: x-examples
+        url: examples/university-of-zurich-userinfo-example.json
+      - type: x-rules
+        url: rules/university-of-zurich-rules.yml
+      - type: x-vocabulary
+        url: vocabulary/university-of-zurich-vocabulary.yml
+      - type: x-json-ld
+        url: json-ld/university-of-zurich-context.jsonld
 common:
   - type: Website
     url: https://www.uzh.ch/en.html

@@ -1,0 +1,50 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "uzh": "https://www.uzh.ch/ns#",
+    "eduid": "https://login.eduid.ch/ns#",
+    "@vocab": "https://login.eduid.ch/ns#",
+    "University": "schema:CollegeOrUniversity",
+    "name": "schema:name",
+    "url": "schema:url",
+    "foundingDate": "schema:foundingDate",
+    "identityProvider": {
+      "@id": "uzh:identityProvider",
+      "@type": "@id"
+    },
+    "issuer": {
+      "@id": "eduid:issuer",
+      "@type": "@id"
+    },
+    "Person": "schema:Person",
+    "sub": "schema:identifier",
+    "givenName": "schema:givenName",
+    "given_name": "schema:givenName",
+    "familyName": "schema:familyName",
+    "family_name": "schema:familyName",
+    "email": "schema:email",
+    "email_verified": "eduid:emailVerified",
+    "locale": "eduid:locale",
+    "swissEduID": "eduid:swissEduID",
+    "swissEduIDAssuranceLevel": "eduid:assuranceLevel",
+    "swissEduPersonMatriculationNumber": "eduid:matriculationNumber",
+    "swissEduPersonHomeOrganization": {
+      "@id": "schema:memberOf",
+      "@type": "@id"
+    },
+    "eduPersonAffiliation": "eduid:affiliation",
+    "eduPersonScopedAffiliation": "eduid:scopedAffiliation",
+    "eduPersonOrcid": {
+      "@id": "schema:identifier",
+      "@type": "@id"
+    },
+    "schacHomeOrganization": "eduid:homeOrganization"
+  },
+  "@type": "University",
+  "name": "University of Zurich",
+  "url": "https://www.uzh.ch/en.html",
+  "foundingDate": "1833",
+  "identityProvider": "https://login.eduid.ch/",
+  "issuer": "https://login.eduid.ch/"
+}

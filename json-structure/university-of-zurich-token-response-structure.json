@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-zurich/main/json-structure/university-of-zurich-token-response-structure.json",
+  "name": "EduIdTokenResponse",
+  "type": "object",
+  "description": "JSON Structure for the SWITCH edu-ID OAuth 2.0 / OIDC token response.",
+  "properties": {
+    "access_token": { "type": "string" },
+    "token_type": { "type": "string" },
+    "expires_in": { "type": "int32" },
+    "scope": { "type": "string" },
+    "id_token": { "type": "string" },
+    "refresh_token": { "type": "string" }
+  },
+  "required": ["access_token", "token_type"]
+}

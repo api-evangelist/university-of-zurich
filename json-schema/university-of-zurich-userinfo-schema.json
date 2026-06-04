@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-zurich/main/json-schema/university-of-zurich-userinfo-schema.json",
+  "title": "SWITCH edu-ID UserInfo",
+  "description": "Claims returned by the SWITCH edu-ID OpenID Connect UserInfo endpoint used by the University of Zurich. Only claims advertised in the discovery document's claims_supported are modeled.",
+  "type": "object",
+  "required": ["sub"],
+  "properties": {
+    "sub": { "type": "string", "description": "Subject identifier (pairwise or public)." },
+    "name": { "type": "string" },
+    "given_name": { "type": "string" },
+    "family_name": { "type": "string" },
+    "gender": { "type": "string" },
+    "birthdate": { "type": "string" },
+    "locale": { "type": "string" },
+    "email": { "type": "string", "format": "email" },
+    "email_verified": { "type": "boolean" },
+    "swissEduID": { "type": "string" },
+    "swissEduIDUniqueID": { "type": "string" },
+    "swissEduIDAssuranceLevel": { "type": "string" },
+    "swissEduPersonUniqueID": { "type": "string" },
+    "swissEduPersonMatriculationNumber": { "type": "string" },
+    "swissEduPersonHomeOrganization": { "type": "string" },
+    "swissEduPersonHomeOrganizationType": { "type": "string" },
+    "eduPersonAffiliation": { "type": "array", "items": { "type": "string" } },
+    "eduPersonScopedAffiliation": { "type": "array", "items": { "type": "string" } },
+    "eduPersonPrincipalName": { "type": "string" },
+    "eduPersonOrcid": { "type": "string" },
+    "schacHomeOrganization": { "type": "string" },
+    "schacHomeOrganizationType": { "type": "string" }
+  },
+  "additionalProperties": true
+}

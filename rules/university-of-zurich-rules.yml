@@ -1,0 +1,45 @@
+formats:
+  - oas3
+documentationUrl: https://www.zi.uzh.ch/en/support/identity-access/eduid-faq.html
+rules:
+  uzh-info-contact:
+    description: Info object should reference the identity provider contact.
+    severity: warn
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+  uzh-https-servers:
+    description: All servers must use HTTPS, matching the edu-ID issuer.
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: ^https://
+  uzh-oidc-security-scheme:
+    description: An OpenID Connect security scheme should be defined for edu-ID flows.
+    severity: warn
+    given: $.components.securitySchemes
+    then:
+      function: truthy
+  uzh-operation-ids:
+    description: Every operation should declare an operationId.
+    severity: error
+    given: $.paths[*][get,post,put,delete,patch]
+    then:
+      field: operationId
+      function: truthy
+  uzh-pkce-s256:
+    description: >-
+      The authorize endpoint should advertise PKCE with the S256 method, the only
+      code_challenge_method supported by SWITCH edu-ID.
+    severity: warn
+    given: $.paths['/idp/profile/oidc/authorize'].get.parameters[?(@.name=='code_challenge_method')].schema.enum
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          contains:
+            const: S256

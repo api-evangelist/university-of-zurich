@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-zurich/main/json-structure/university-of-zurich-userinfo-structure.json",
+  "name": "EduIdUserInfo",
+  "type": "object",
+  "description": "JSON Structure for the SWITCH edu-ID OpenID Connect UserInfo object used by UZH.",
+  "properties": {
+    "sub": { "type": "string" },
+    "name": { "type": "string" },
+    "given_name": { "type": "string" },
+    "family_name": { "type": "string" },
+    "gender": { "type": "string" },
+    "birthdate": { "type": "string" },
+    "locale": { "type": "string" },
+    "email": { "type": "string" },
+    "email_verified": { "type": "boolean" },
+    "swissEduID": { "type": "string" },
+    "swissEduIDUniqueID": { "type": "string" },
+    "swissEduIDAssuranceLevel": { "type": "string" },
+    "swissEduPersonUniqueID": { "type": "string" },
+    "swissEduPersonMatriculationNumber": { "type": "string" },
+    "swissEduPersonHomeOrganization": { "type": "string" },
+    "swissEduPersonHomeOrganizationType": { "type": "string" },
+    "eduPersonAffiliation": { "type": "array", "items": { "type": "string" } },
+    "eduPersonScopedAffiliation": { "type": "array", "items": { "type": "string" } },
+    "eduPersonPrincipalName": { "type": "string" },
+    "eduPersonOrcid": { "type": "string" },
+    "schacHomeOrganization": { "type": "string" },
+    "schacHomeOrganizationType": { "type": "string" }
+  },
+  "required": ["sub"]
+}
