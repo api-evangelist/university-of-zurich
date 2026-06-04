@@ -1,0 +1,44 @@
+---
+name: University of Zurich
+description: University of Zurich public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/university-of-zurich/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 2
+    summary: >-
+      UZH has no centralized public developer portal. Confirmed assets: the
+      official GitHub org "uzh" (verified live via GitHub API, 65 public repos),
+      the ZORA research repository (verified to exist via EPrints registry, CORE
+      OAI sample, and UZH library blog announcing the Oct-2025 DSpace migration),
+      and SWITCH edu-ID identity (SAML/Shibboleth + OpenID Connect, eduid.uzh.ch
+      resolves). The legacy ZORA EPrints OAI endpoint (/cgi/oai2) now returns 404,
+      consistent with the DSpace migration; new ZORA OAI (/oai/request) and DSpace
+      REST (/server/api) paths are cataloged as the current endpoints but could
+      not be confirmed live from this environment (host timed out / 000 from the
+      sandbox). No fabricated endpoints; gated student systems (course catalogue,
+      OLAT, student services) noted but not cataloged as open APIs.
+    endpoints:
+      - url: https://www.uzh.ch/en.html
+        status: 200
+        note: Official UZH website, resolves.
+      - url: https://github.com/uzh
+        status: 200
+        note: Official GitHub org, 65 public repos (verified via GitHub API).
+      - url: https://eduid.uzh.ch/linking/
+        status: 200
+        note: UZH SWITCH edu-ID linking service, resolves; OAuth 2.0 login offered.
+      - url: https://www.zora.uzh.ch/cgi/oai2?verb=Identify
+        status: 404
+        note: Legacy EPrints OAI-PMH endpoint, now dead after Oct-2025 DSpace migration.
+      - url: https://www.zora.uzh.ch/oai/request
+        status: 0
+        note: New DSpace OAI-PMH base URL; host timed out from this environment, unconfirmed live.
+      - url: https://www.zora.uzh.ch/server/api
+        status: 0
+        note: DSpace REST API root; host timed out from this environment, unconfirmed live.
+      - url: https://courses.uzh.ch/
+        status: 0
+        note: Course Catalogue (Vorlesungsverzeichnis) web app; no public documented API found.
+---

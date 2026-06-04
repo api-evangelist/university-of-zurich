@@ -1,0 +1,97 @@
+---
+aid: university-of-zurich
+name: University of Zurich
+description: >-
+  The University of Zurich (UZH) is Switzerland's largest university, founded in
+  1833, and is ranked #61 in the QS World University Rankings 2025. UZH does not
+  operate a centralized public developer portal; its machine-readable footprint
+  is centered on open scholarship and identity infrastructure. The Zurich Open
+  Repository and Archive (ZORA) exposes the university's research output, the
+  GitHub organization "uzh" hosts open-source projects, and federated identity is
+  provided through SWITCH edu-ID (SAML/Shibboleth and OpenID Connect). Most
+  student-facing systems (course catalogue, OLAT LMS, student services) are
+  web/SSO-gated rather than openly documented APIs.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/university-of-zurich/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Switzerland
+  - Open Access
+  - Research Repository
+  - Open Data
+  - Identity
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: university-of-zurich:zora-oai
+    name: ZORA Repository OAI-PMH
+    description: >-
+      The Zurich Open Repository and Archive (ZORA) provides open, worldwide
+      access to the peer-reviewed research and scholarly output of the University
+      of Zurich. ZORA supports OAI-PMH 2.0 for metadata harvesting. As of October
+      2025 ZORA migrated from EPrints to DSpace; the OAI-PMH base URL is served
+      from the DSpace stack and the legacy EPrints endpoint (/cgi/oai2) is no
+      longer active.
+    humanURL: https://www.zora.uzh.ch/
+    baseURL: https://www.zora.uzh.ch/oai/request
+    tags: [ Research Repository, Open Access, OAI-PMH, DSpace, Metadata ]
+    properties:
+      - type: Documentation
+        url: https://www.zora.uzh.ch/
+  - aid: university-of-zurich:zora-rest
+    name: ZORA DSpace REST API
+    description: >-
+      Following its 2025 migration to DSpace 7+, ZORA exposes the standard DSpace
+      REST API (HAL+JSON) for programmatic discovery of communities, collections,
+      and items representing UZH research output. This is the underlying DSpace
+      back-end API rather than a bespoke UZH developer product.
+    humanURL: https://www.zora.uzh.ch/
+    baseURL: https://www.zora.uzh.ch/server/api
+    tags: [ Research Repository, Open Access, DSpace, REST ]
+    properties:
+      - type: Documentation
+        url: https://www.zora.uzh.ch/
+  - aid: university-of-zurich:eduid-oidc
+    name: SWITCH edu-ID / UZH Identity (SAML & OpenID Connect)
+    description: >-
+      UZH uses SWITCH edu-ID as its central identity, which is mandatory for
+      SWITCHaai (Shibboleth/SAML) protected services and also supports modern
+      OpenID Connect / OAuth 2.0 flows. The UZH edu-ID linking service offers an
+      OAuth 2.0 login. This is federated identity infrastructure used to protect
+      UZH services rather than a generally available public API.
+    humanURL: https://www.zi.uzh.ch/en/support/identity-access/eduid-faq.html
+    tags: [ Identity, Authentication, SAML, Shibboleth, OpenID Connect, OAuth2 ]
+    properties:
+      - type: Documentation
+        url: https://www.zi.uzh.ch/en/support/identity-access/eduid-faq.html
+      - type: SignUp
+        url: https://eduid.uzh.ch/linking/login
+common:
+  - type: Website
+    url: https://www.uzh.ch/en.html
+  - type: GitHub
+    url: https://github.com/uzh
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/uzh
+  - type: Twitter
+    url: https://x.com/UZH_en
+  - type: Authentication
+    url: https://www.zi.uzh.ch/en/support/identity-access/eduid-faq.html
+  - type: Plans
+    url: plans/university-of-zurich-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/university-of-zurich-rate-limits.yml
+  - type: FinOps
+    url: finops/university-of-zurich-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+---
