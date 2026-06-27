@@ -70,7 +70,7 @@ apis:
     properties:
       - type: Documentation
         url: https://www.zi.uzh.ch/en/support/identity-access/eduid-faq.html
-      - type: SignUp
+      - type: Signup
         url: https://eduid.uzh.ch/linking/login
       - type: OpenAPI
         url: openapi/university-of-zurich-eduid-oidc.yaml
