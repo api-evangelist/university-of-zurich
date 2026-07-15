@@ -89,6 +89,8 @@ apis:
       - type: x-json-ld
         url: json-ld/university-of-zurich-context.jsonld
 common:
+  - type: AgenticAccess
+    url: agentic-access/university-of-zurich-agentic-access.yml
   - type: DomainSecurity
     url: security/university-of-zurich-domain-security.yml
   - type: Authentication
