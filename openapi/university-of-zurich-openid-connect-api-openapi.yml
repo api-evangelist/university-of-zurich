@@ -1,0 +1,123 @@
+openapi: 3.0.3
+info:
+  title: SWITCH edu-ID (UZH Federated Identity) Discovery OpenID Connect API
+  description: OpenID Connect / OAuth 2.0 provider operated by SWITCH edu-ID and used by the University of Zurich as its central federated identity. This OpenAPI document is derived faithfully from the published OpenID Connect Discovery document at https://login.eduid.ch/.well-known/openid-configuration and the matching JWKS endpoint. Only endpoints, parameters, scopes, and claims actually advertised by the discovery document are represented here. Authorization Code flow with PKCE (S256) is the supported interactive flow; refresh_token is supported for token renewal.
+  version: '2026-06-03'
+  contact:
+    name: SWITCH edu-ID
+    url: https://login.eduid.ch/
+  x-uzh-usage: UZH services rely on SWITCH edu-ID for SAML/Shibboleth and OpenID Connect authentication. See https://www.zi.uzh.ch/en/support/identity-access/eduid-faq.html
+servers:
+- url: https://login.eduid.ch
+  description: SWITCH edu-ID production issuer
+tags:
+- name: OpenID Connect
+  description: Identity, userinfo, and session endpoints
+paths:
+  /idp/profile/oidc/userinfo:
+    get:
+      tags:
+      - OpenID Connect
+      operationId: userinfo
+      summary: UserInfo endpoint
+      description: Returns claims about the authenticated end-user.
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: UserInfo claims
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+        '401':
+          description: Invalid or missing access token
+  /idp/profile/oidc/end-session:
+    get:
+      tags:
+      - OpenID Connect
+      operationId: endSession
+      summary: End-session (RP-initiated logout) endpoint
+      parameters:
+      - name: id_token_hint
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: post_logout_redirect_uri
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uri
+      - name: state
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '302':
+          description: Redirect after session termination
+components:
+  schemas:
+    UserInfo:
+      type: object
+      description: Claims about the end-user. Only claims advertised in claims_supported by the discovery document are listed; many are SWITCH edu-ID specific (swissEduPerson*, swissEduID*) or eduPerson schema attributes.
+      properties:
+        sub:
+          type: string
+        name:
+          type: string
+        given_name:
+          type: string
+        family_name:
+          type: string
+        gender:
+          type: string
+        birthdate:
+          type: string
+        locale:
+          type: string
+        email:
+          type: string
+          format: email
+        email_verified:
+          type: boolean
+        swissEduID:
+          type: string
+        swissEduIDUniqueID:
+          type: string
+        swissEduIDAssuranceLevel:
+          type: string
+        swissEduPersonUniqueID:
+          type: string
+        swissEduPersonMatriculationNumber:
+          type: string
+        swissEduPersonHomeOrganization:
+          type: string
+        swissEduPersonHomeOrganizationType:
+          type: string
+        eduPersonAffiliation:
+          type: array
+          items:
+            type: string
+        eduPersonScopedAffiliation:
+          type: array
+          items:
+            type: string
+        eduPersonPrincipalName:
+          type: string
+        eduPersonOrcid:
+          type: string
+        schacHomeOrganization:
+          type: string
+        schacHomeOrganizationType:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    oidc:
+      type: openIdConnect
+      openIdConnectUrl: https://login.eduid.ch/.well-known/openid-configuration

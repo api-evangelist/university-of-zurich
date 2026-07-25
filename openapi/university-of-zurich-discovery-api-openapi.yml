@@ -1,0 +1,152 @@
+openapi: 3.0.3
+info:
+  title: SWITCH edu-ID OpenID Connect (UZH Federated Identity) Discovery API
+  description: OpenID Connect / OAuth 2.0 provider operated by SWITCH edu-ID and used by the University of Zurich as its central federated identity. This OpenAPI document is derived faithfully from the published OpenID Connect Discovery document at https://login.eduid.ch/.well-known/openid-configuration and the matching JWKS endpoint. Only endpoints, parameters, scopes, and claims actually advertised by the discovery document are represented here. Authorization Code flow with PKCE (S256) is the supported interactive flow; refresh_token is supported for token renewal.
+  version: '2026-06-03'
+  contact:
+    name: SWITCH edu-ID
+    url: https://login.eduid.ch/
+  x-uzh-usage: UZH services rely on SWITCH edu-ID for SAML/Shibboleth and OpenID Connect authentication. See https://www.zi.uzh.ch/en/support/identity-access/eduid-faq.html
+servers:
+- url: https://login.eduid.ch
+  description: SWITCH edu-ID production issuer
+tags:
+- name: Discovery
+  description: OpenID Provider metadata and key material
+paths:
+  /.well-known/openid-configuration:
+    get:
+      tags:
+      - Discovery
+      operationId: getOpenIdConfiguration
+      summary: OpenID Provider configuration (discovery document)
+      description: Returns the OpenID Provider metadata document describing supported endpoints, scopes, claims, response types, and signing/encryption algorithms.
+      responses:
+        '200':
+          description: Provider metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenIdConfiguration'
+  /idp/profile/oidc/keyset:
+    get:
+      tags:
+      - Discovery
+      operationId: getJwks
+      summary: JSON Web Key Set (JWKS)
+      description: Returns the provider's public keys used for signing and encryption.
+      responses:
+        '200':
+          description: A JWK Set
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JwkSet'
+components:
+  schemas:
+    JwkSet:
+      type: object
+      properties:
+        keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/Jwk'
+    Jwk:
+      type: object
+      properties:
+        kty:
+          type: string
+          example: RSA
+        use:
+          type: string
+          enum:
+          - sig
+          - enc
+        kid:
+          type: string
+        alg:
+          type: string
+          nullable: true
+        n:
+          type: string
+        e:
+          type: string
+        crv:
+          type: string
+        x:
+          type: string
+        y:
+          type: string
+    OpenIdConfiguration:
+      type: object
+      description: OpenID Provider metadata as advertised by the discovery endpoint.
+      properties:
+        issuer:
+          type: string
+          format: uri
+          example: https://login.eduid.ch/
+        authorization_endpoint:
+          type: string
+          format: uri
+        token_endpoint:
+          type: string
+          format: uri
+        userinfo_endpoint:
+          type: string
+          format: uri
+        introspection_endpoint:
+          type: string
+          format: uri
+        revocation_endpoint:
+          type: string
+          format: uri
+        end_session_endpoint:
+          type: string
+          format: uri
+        jwks_uri:
+          type: string
+          format: uri
+        scopes_supported:
+          type: array
+          items:
+            type: string
+        response_types_supported:
+          type: array
+          items:
+            type: string
+        response_modes_supported:
+          type: array
+          items:
+            type: string
+        grant_types_supported:
+          type: array
+          items:
+            type: string
+        code_challenge_methods_supported:
+          type: array
+          items:
+            type: string
+        token_endpoint_auth_methods_supported:
+          type: array
+          items:
+            type: string
+        subject_types_supported:
+          type: array
+          items:
+            type: string
+        id_token_signing_alg_values_supported:
+          type: array
+          items:
+            type: string
+        claims_supported:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    oidc:
+      type: openIdConnect
+      openIdConnectUrl: https://login.eduid.ch/.well-known/openid-configuration
