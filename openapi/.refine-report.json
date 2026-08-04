@@ -1,0 +1,18 @@
+{
+  "provider": "university-of-zurich",
+  "sources": [
+    "university-of-zurich-discovery-api-openapi.yml",
+    "university-of-zurich-oauth2-api-openapi.yml",
+    "university-of-zurich-openid-connect-api-openapi.yml"
+  ],
+  "outputs": [
+    "university-of-zurich-discovery-api-openapi.yml",
+    "university-of-zurich-oauth2-api-openapi.yml",
+    "university-of-zurich-openid-connect-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
