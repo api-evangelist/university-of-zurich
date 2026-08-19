@@ -1,0 +1,256 @@
+{
+  "item": [
+    {
+      "id": "da6a5276-0c6e-43c3-a47b-7a84a43414ff",
+      "name": "OpenID Connect",
+      "description": {
+        "content": "Identity, userinfo, and session endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "14ca2762-eb7d-42fd-b3e3-b6ecd68c0403",
+          "name": "UserInfo endpoint",
+          "request": {
+            "name": "UserInfo endpoint",
+            "description": {
+              "content": "Returns claims about the authenticated end-user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "idp",
+                "profile",
+                "oidc",
+                "userinfo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ab3eae2f-b92b-4de7-a4dc-c41ef68b3dbd",
+              "name": "UserInfo claims",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "idp",
+                    "profile",
+                    "oidc",
+                    "userinfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sub\": \"string\",\n  \"name\": \"string\",\n  \"given_name\": \"string\",\n  \"family_name\": \"string\",\n  \"gender\": \"string\",\n  \"birthdate\": \"string\",\n  \"locale\": \"string\",\n  \"email\": \"Jjuemo3pN@WbuyHsPJWPAlJKxYIFiBRgRntvxI.jq\",\n  \"email_verified\": true,\n  \"swissEduID\": \"string\",\n  \"swissEduIDUniqueID\": \"string\",\n  \"swissEduIDAssuranceLevel\": \"string\",\n  \"swissEduPersonUniqueID\": \"string\",\n  \"swissEduPersonMatriculationNumber\": \"string\",\n  \"swissEduPersonHomeOrganization\": \"string\",\n  \"swissEduPersonHomeOrganizationType\": \"string\",\n  \"eduPersonAffiliation\": [\n    \"string\",\n    \"string\"\n  ],\n  \"eduPersonScopedAffiliation\": [\n    \"string\",\n    \"string\"\n  ],\n  \"eduPersonPrincipalName\": \"string\",\n  \"eduPersonOrcid\": \"string\",\n  \"schacHomeOrganization\": \"string\",\n  \"schacHomeOrganizationType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f9327b6-0069-4b3a-8c28-3b9216bfd6db",
+              "name": "Invalid or missing access token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "idp",
+                    "profile",
+                    "oidc",
+                    "userinfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "872aef73-3984-4a69-a9ef-2ac791486b61",
+          "name": "End-session (RP-initiated logout) endpoint",
+          "request": {
+            "name": "End-session (RP-initiated logout) endpoint",
+            "description": {},
+            "url": {
+              "path": [
+                "idp",
+                "profile",
+                "oidc",
+                "end-session"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id_token_hint",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "post_logout_redirect_uri",
+                  "value": "<uri>"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "211e8753-22a5-4526-b827-0cae2b9e3bdb",
+              "name": "Redirect after session termination",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "idp",
+                    "profile",
+                    "oidc",
+                    "end-session"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id_token_hint",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "post_logout_redirect_uri",
+                      "value": "<uri>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://login.eduid.ch",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2a7cac2c-ae15-4731-b8b6-e880545e94fe",
+    "name": "SWITCH edu-ID (UZH Federated Identity) Discovery OpenID Connect API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenID Connect / OAuth 2.0 provider operated by SWITCH edu-ID and used by the University of Zurich as its central federated identity. This OpenAPI document is derived faithfully from the published OpenID Connect Discovery document at https://login.eduid.ch/.well-known/openid-configuration and the matching JWKS endpoint. Only endpoints, parameters, scopes, and claims actually advertised by the discovery document are represented here. Authorization Code flow with PKCE (S256) is the supported interactive flow; refresh_token is supported for token renewal.\n\nContact Support:\n Name: SWITCH edu-ID",
+      "type": "text/plain"
+    }
+  }
+}

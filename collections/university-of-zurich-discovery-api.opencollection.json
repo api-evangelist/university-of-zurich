@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SWITCH edu-ID OpenID Connect (UZH Federated Identity) Discovery API",
+    "version": "2026-06-03"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "OpenID Provider configuration (discovery document)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://login.eduid.ch/.well-known/openid-configuration"
+          },
+          "docs": "Returns the OpenID Provider metadata document describing supported endpoints, scopes, claims, response types, and signing/encryption algorithms."
+        },
+        {
+          "info": {
+            "name": "JSON Web Key Set (JWKS)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://login.eduid.ch/idp/profile/oidc/keyset"
+          },
+          "docs": "Returns the provider's public keys used for signing and encryption."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
