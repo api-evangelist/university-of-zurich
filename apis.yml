@@ -110,6 +110,8 @@ apis:
   humanURL: https://www.zora.uzh.ch/
   baseURL: https://www.zora.uzh.ch/oai/request
   tags:
+  - Authentication
+  tags_raw:
   - OAuth2
   properties:
   - type: OpenAPI
