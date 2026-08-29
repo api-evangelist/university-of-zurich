@@ -175,6 +175,9 @@ apis:
   - type: x-json-ld
     url: json-ld/university-of-zurich-context.jsonld
 common:
+  - type: CapabilityMap
+    url: capabilities/university-of-zurich-capability-edges.yml
+    name: University of Zurich Business Capability Map
   - type: AgenticAccess
     url: agentic-access/university-of-zurich-agentic-access.yml
   - type: DomainSecurity
