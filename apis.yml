@@ -12,6 +12,18 @@ description: >-
   student-facing systems (course catalogue, OLAT LMS, student services) are
   web/SSO-gated rather than openly documented APIs.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: self-serve
