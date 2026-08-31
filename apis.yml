@@ -1,42 +1,63 @@
 ---
 aid: university-of-zurich
 name: University of Zurich
+x-type: university
+x-category: Public Research University
 description: >-
-  The University of Zurich (UZH) is Switzerland's largest university, founded in
-  1833, and is ranked #61 in the QS World University Rankings 2025. UZH does not
-  operate a centralized public developer portal; its machine-readable footprint
-  is centered on open scholarship and identity infrastructure. The Zurich Open
-  Repository and Archive (ZORA) exposes the university's research output, the
-  GitHub organization "uzh" hosts open-source projects, and federated identity is
-  provided through SWITCH edu-ID (SAML/Shibboleth and OpenID Connect). Most
-  student-facing systems (course catalogue, OLAT LMS, student services) are
-  web/SSO-gated rather than openly documented APIs.
+  The University of Zurich (UZH) is Switzerland's largest university, founded in 1833, with roughly
+  28,000 students across seven faculties. UZH operates no central developer portal, publishes no
+  OpenAPI description of its own, and offers no API key or self-service onboarding of any kind. Its
+  real programmable footprint is four institution-run endpoints that speak someone else's contract:
+  the ZORA repository's OAI-PMH 2.0 interface and DSpace 8 REST API at www.zora.uzh.ch, the
+  KlickerUZH audience-response GraphQL API at api.klicker.uzh.ch built and run by the Department of
+  Banking and Finance, and a self-hosted GitLab at gitlab.uzh.ch whose v4 REST API answers
+  unauthenticated reads of public projects. Federated identity is a tenancy, not an operation: the
+  UZH SAML entity aai-idp.uzh.ch is UZH's namespace but its SSO endpoints run on SWITCH's hosted
+  edu-ID platform at uzh.login.eduid.ch. The course catalogue, the OLAT learning platform and
+  swisscovery library discovery are web and SSO surfaces with no documented public API.
 type: Index
+x-attribution:
+  reviewed: '2026-08-30'
+  pipeline: pipeline-university
+  summary: >-
+    Re-profiled under the operator axis. The three OpenAPI documents previously held here
+    (discovery, oauth2, openid-connect) all described https://login.eduid.ch — the SWITCH edu-ID
+    identity provider — and said so in their own info.title ("SWITCH edu-ID ...") and
+    info.contact ("SWITCH edu-ID", https://login.eduid.ch/). login.eduid.ch is the shared national
+    issuer every Swiss institution uses; the EPFL repo in this catalog points at the same host.
+    That is a vendor surface, so the contract and everything derived from it was removed: 3 refined
+    OpenAPIs, 1 _original source, 6 collections, 3 examples, 2 json-schema, 2 json-structure,
+    2 rules, 1 vocabulary, 1 json-ld, 1 agentic-access, 1 authentication, 1 capabilities and
+    2 refine reports — 26 files. The relationship itself was kept and re-labelled as
+    x-operator tenant, because a hosted IdP under a UZH-specific hostname is a real institutional
+    fact. One dead pointer was repaired: the ZORA OAI-PMH base URL moved from /oai/request to
+    /server/oai/request in the 2025 EPrints-to-DSpace migration.
+  files_removed: 26
+  vendor_host_rejected: login.eduid.ch
 deliveryModel:
   model: saas
   open_source: false
-  commercial: true
+  commercial: false
   callable_host: true
   label: Hosted service · you call their endpoint
-  confidence: high
+  confidence: medium
   source:
-  - openapi
-  - pricing
-  generated: '2026-08-28'
+  - plans
+  generated: '2026-08-30'
   method: derived
 accessModel:
   pricing: free
   onboarding: self-serve
   trial: false
   try_now: true
-  public: false
-  label: Free · Self-serve signup
+  public: true
+  label: Free · No signup required for public metadata endpoints
   confidence: high
   source:
   - plans
-  - authentication
-  generated: '2026-07-22'
-  method: derived
+  - conformance
+  generated: '2026-08-30'
+  method: probed
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/university-of-zurich.png
@@ -45,24 +66,81 @@ tags:
   - Education
   - Higher Education
   - University
+  - Public Research University
   - Switzerland
+  - Europe
+  - League of European Research Universities
   - Open Access
   - Research Repository
-  - Open Data
-  - Identity
+  - OAI-PMH
+  - Identity Federation
+  - GraphQL
+  - Research Computing
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-30'
 specificationVersion: '0.23'
+x-coverage:
+  state: covered
+  reason: covered
+  detail: >-
+    Four institution-operated, publicly callable endpoints were reached and verified on 2026-08-30,
+    so this is not a thin profile — but none of them is a UZH-authored contract. ZORA's OAI-PMH and
+    DSpace REST interfaces are DSpace 8.0's shape running on UZH hardware under a uzh.ch host with a
+    uzh.ch admin contact; gitlab.uzh.ch is GitLab's v4 REST API self-hosted by UZH; KlickerUZH is
+    UZH-built open source but ships no published schema (Apollo introspection is disabled in
+    production). No OpenAPI, no developer portal, no API keys, no rate-limit table, no status page.
+    www.zora.uzh.ch sits behind an Anubis bot challenge on some paths (/server/opensearch/service
+    served the challenge page) while /server/api and /server/oai answered normally. api.uzh.ch,
+    data.uzh.ch, opendata.uzh.ch and developer.uzh.ch do not resolve. The German-language surface was
+    checked alongside the English one; the AI recommendations exist in both.
+  generated: '2026-08-30'
+  method: probed
+  evidence:
+  - url: https://www.zora.uzh.ch/server/oai/request?verb=Identify
+    status: 200
+  - url: https://www.zora.uzh.ch/server/api
+    status: 200
+  - url: https://www.zora.uzh.ch/server/api/core/communities?size=2
+    status: 200
+  - url: https://api.klicker.uzh.ch/graphql
+    status: 400
+  - url: https://gitlab.uzh.ch/api/v4/projects?per_page=2
+    status: 200
+  - url: https://gitlab.uzh.ch/api/v4/version
+    status: 401
+  - url: https://metadata.aai.switch.ch/metadata.switchaai.xml
+    status: 200
+  - url: https://www.zora.uzh.ch/oai/request?verb=Identify
+    status: 404
+  - url: https://www.zora.uzh.ch/server/opensearch/service
+    status: 200
+  - url: https://api.uzh.ch/
+    status: 0
+  - url: https://developer.uzh.ch/
+    status: 0
+  - url: https://www.uzh.ch/llms.txt
+    status: 404
+  - url: https://www.uzh.ch/.well-known/security.txt
+    status: 404
 apis:
 - aid: university-of-zurich:zora-oai
   name: ZORA Repository OAI-PMH
+  x-operator: institution
+  x-operator-basis: >-
+    Host www.zora.uzh.ch is under UZH's own registrable domain, and the Identify response names
+    adminEmail martin.braendle@uzh.ch and repositoryIdentifier www.zora.uzh.ch. UZH's Central IT
+    runs the service. The protocol is OAI-PMH 2.0 and the software is DSpace 8.0 — the contract is
+    the community's, the deployment is UZH's.
   description: >-
-    The Zurich Open Repository and Archive (ZORA) provides open, worldwide access to the peer-reviewed
-    research and scholarly output of the University of Zurich. ZORA supports OAI-PMH 2.0 for metadata
-    harvesting. As of October 2025 ZORA migrated from EPrints to DSpace; the OAI-PMH base URL is served
-    from the DSpace stack and the legacy EPrints endpoint (/cgi/oai2) is no longer active.
+    The Zurich Open Repository and Archive (ZORA) is UZH's institutional repository for the
+    peer-reviewed research output of the university. Its OAI-PMH 2.0 interface serves metadata for
+    harvesting with no authentication and no signup, disseminating mods, oai_dc, oai_datacite, marc
+    and akaber. ZORA migrated from EPrints to DSpace in October 2025 and the legacy /cgi/oai2 and
+    /oai/request base URLs are dead; the live base URL is /server/oai/request. A second OAI-PMH
+    context for OpenAIRE is served at /server/oai/openaire and the Identify response embeds an
+    OpenAIRE CERIF 1.1 Service compatibility declaration. Earliest datestamp is 2008-02-11.
   humanURL: https://www.zora.uzh.ch/
-  baseURL: https://www.zora.uzh.ch/oai/request
+  baseURL: https://www.zora.uzh.ch/server/oai/request
   tags:
   - Research Repository
   - Open Access
@@ -72,12 +150,23 @@ apis:
   properties:
   - type: Documentation
     url: https://www.zora.uzh.ch/
+  - type: x-conformance
+    url: conformance/university-of-zurich-conformance.yml
 - aid: university-of-zurich:zora-rest
   name: ZORA DSpace REST API
+  x-operator: institution
+  x-operator-basis: >-
+    Host www.zora.uzh.ch is UZH's; the API root reports dspaceName "ZORA" and dspaceUI
+    https://www.zora.uzh.ch. The HAL+JSON contract is DSpace 8.0's, shipped by the DSpace project
+    and identical at every DSpace installation, so no generic DSpace specification is saved under
+    this institution — the deployment is recorded, the product's contract is not.
   description: >-
-    Following its 2025 migration to DSpace 7+, ZORA exposes the standard DSpace REST API (HAL+JSON) for
-    programmatic discovery of communities, collections, and items representing UZH research output. This
-    is the underlying DSpace back-end API rather than a bespoke UZH developer product.
+    ZORA runs DSpace 8.0 and exposes the standard DSpace REST API (application/hal+json) for
+    programmatic discovery of communities, collections and items representing UZH research output.
+    Community and collection reads are open — /server/api/core/communities and
+    /server/api/core/collections return data with no credentials — while /server/api/core/items
+    returns 401 without an authenticated session. The root document advertises around fifty HAL
+    link relations including discover, browses, identifiers, entitytypes and contentreport.
   humanURL: https://www.zora.uzh.ch/
   baseURL: https://www.zora.uzh.ch/server/api
   tags:
@@ -85,115 +174,143 @@ apis:
   - Open Access
   - DSpace
   - REST
+  - HAL
   properties:
   - type: Documentation
     url: https://www.zora.uzh.ch/
-- aid: university-of-zurich:university-of-zurich-discovery-api
-  name: University of Zurich Discovery API
-  description: OpenID Provider metadata and key material
-  humanURL: https://www.zora.uzh.ch/
-  baseURL: https://www.zora.uzh.ch/oai/request
+- aid: university-of-zurich:klicker-graphql
+  name: KlickerUZH GraphQL API
+  x-operator: institution
+  x-operator-basis: >-
+    api.klicker.uzh.ch is under UZH's own registrable domain and KlickerUZH is built, maintained and
+    operated by the UZH Department of Banking and Finance as open source (github.com/uzh-bf/klicker-uzh).
+    This is the one surface in this profile that UZH both wrote and runs.
+  description: >-
+    KlickerUZH is the university's open-source audience-response and interactive-learning platform,
+    developed and hosted by the UZH Department of Banking and Finance. Its backend is a single
+    Apollo GraphQL endpoint. The endpoint is live and validating — an unknown field returns a
+    GRAPHQL_VALIDATION_FAILED error rather than a transport failure — but schema introspection is
+    disabled in production, so no machine-readable schema could be retrieved and none is published
+    on the documentation site. No SDL, no OpenAPI, no public playground.
+  humanURL: https://www.klicker.uzh.ch/
+  baseURL: https://api.klicker.uzh.ch/graphql
+  x-liveness: >-
+    GET returns 400; POST with a GraphQL document returns a GRAPHQL_VALIDATION_FAILED error from
+    Apollo Server, which is a live, schema-validating endpoint. Introspection is disabled in
+    production, so the schema itself is not retrievable.
   tags:
-  - Discovery
+  - GraphQL
+  - Education Technology
+  - Audience Response
+  - Open Source
   properties:
-  - type: OpenAPI
-    url: openapi/university-of-zurich-discovery-api-openapi.yml
+  - type: Documentation
+    url: https://www.klicker.uzh.ch/
+  - type: DeveloperDocumentation
+    url: https://www.klicker.uzh.ch/development/
+  - type: SourceCode
+    url: https://github.com/uzh-bf/klicker-uzh
+- aid: university-of-zurich:gitlab-api
+  name: UZH GitLab REST API
+  x-operator: institution
+  x-operator-basis: >-
+    gitlab.uzh.ch is UZH's own host, registered as a service provider in the SWITCHaai federation
+    under entityID https://gitlab.uzh.ch/shibboleth, and the instance is self-hosted by UZH rather
+    than a gitlab.com group. The v4 REST contract is GitLab's, so no GitLab specification is saved
+    here — only the fact that UZH runs an instance and leaves public project metadata readable.
+  description: >-
+    UZH self-hosts GitLab for research and teaching code. The GitLab v4 REST API is reachable
+    without credentials for public resources — /api/v4/projects returns project metadata
+    anonymously — while /api/v4/version requires a token and returns 401. Sign-in is
+    SWITCHaai/Shibboleth-federated. There is no UZH-authored documentation for this surface; it is
+    GitLab's stock API on a UZH deployment.
+  humanURL: https://gitlab.uzh.ch/
+  baseURL: https://gitlab.uzh.ch/api/v4
+  x-liveness: >-
+    GET on the bare base https://gitlab.uzh.ch/api/v4 returns 404 because GitLab mounts no handler
+    at the API root. The surface is live: /api/v4/projects?per_page=2 returned 200 with real project
+    JSON on 2026-08-30, and /api/v4/version returned 401. Do not read the root 404 as a dead pointer.
+  tags:
+  - Source Control
+  - Research Computing
+  - REST
+  properties:
+  - type: Documentation
+    url: https://gitlab.uzh.ch/
+- aid: university-of-zurich:eduid-idp
+  name: University of Zurich Identity Provider (SWITCH edu-ID, tenant)
+  x-operator: tenant
+  x-operator-basis: >-
+    The entityID https://aai-idp.uzh.ch/idp/shibboleth is UZH's namespace and the shibmd:Scope is
+    uzh.ch, but every SingleSignOnService and SingleLogoutService Location in the SWITCHaai
+    federation metadata points at https://uzh.login.eduid.ch/idp/profile/SAML2/... — a UZH-specific
+    hostname on SWITCH's hosted edu-ID platform. UZH's users and UZH's attribute policy; SWITCH's
+    running IdP. The generic OIDC issuer at login.eduid.ch is shared by every Swiss institution and
+    uzh.login.eduid.ch/.well-known/openid-configuration simply returns login.eduid.ch endpoints, so
+    no SWITCH contract is saved under this slug.
+  description: >-
+    UZH's SAML 2.0 identity provider is delivered by SWITCH edu-ID as a hosted, UZH-scoped IdP and
+    registered in the SWITCHaai federation with mdui:DisplayName "University of Zurich". The
+    federation metadata aggregate is the machine-readable artifact: it carries the UZH IdP entity
+    plus more than two hundred uzh.ch service-provider entities covering gitlab.uzh.ch,
+    ezproxy.uzh.ch, the olat.uzh.ch learning platform, the exam.uzh.ch assessment estate and
+    eduid.uzh.ch. This is UZH's largest genuinely machine-readable identity surface, and it is a
+    tenancy rather than an operation.
+  humanURL: https://www.zi.uzh.ch/en/support/identity-access/eduid-faq.html
+  baseURL: https://uzh.login.eduid.ch/idp/profile/SAML2/Redirect/SSO
+  x-liveness: >-
+    GET without a SAMLRequest returns 400 by design; a SAML 2.0 HTTP-Redirect SSO endpoint has no
+    meaningful bare-GET response. The endpoint is published in the live SWITCHaai federation
+    metadata aggregate (200 on 2026-08-30). Do not read the 400 as a dead pointer.
+  tags:
+  - Identity Federation
+  - SAML
+  - Shibboleth
+  - SWITCH edu-ID
+  properties:
   - type: Documentation
     url: https://www.zi.uzh.ch/en/support/identity-access/eduid-faq.html
-  - type: Signup
-    url: https://eduid.uzh.ch/linking/login
-  - type: x-openid-configuration
-    url: https://login.eduid.ch/.well-known/openid-configuration
-  - type: x-json-schema
-    url: json-schema/university-of-zurich-userinfo-schema.json
-  - type: x-json-structure
-    url: json-structure/university-of-zurich-userinfo-structure.json
-  - type: x-examples
-    url: examples/university-of-zurich-userinfo-example.json
-  - type: x-rules
-    url: rules/university-of-zurich-rules.yml
-  - type: x-vocabulary
-    url: vocabulary/university-of-zurich-vocabulary.yml
-  - type: x-json-ld
-    url: json-ld/university-of-zurich-context.jsonld
-- aid: university-of-zurich:university-of-zurich-oauth2-api
-  name: University of Zurich OAuth2 API
-  description: Authorization and token issuance
-  humanURL: https://www.zora.uzh.ch/
-  baseURL: https://www.zora.uzh.ch/oai/request
-  tags:
-  - Authentication
-  tags_raw:
-  - OAuth2
-  properties:
-  - type: OpenAPI
-    url: openapi/university-of-zurich-oauth2-api-openapi.yml
-  - type: Documentation
-    url: https://www.zi.uzh.ch/en/support/identity-access/eduid-faq.html
-  - type: Signup
-    url: https://eduid.uzh.ch/linking/login
-  - type: x-openid-configuration
-    url: https://login.eduid.ch/.well-known/openid-configuration
-  - type: x-json-schema
-    url: json-schema/university-of-zurich-userinfo-schema.json
-  - type: x-json-structure
-    url: json-structure/university-of-zurich-userinfo-structure.json
-  - type: x-examples
-    url: examples/university-of-zurich-userinfo-example.json
-  - type: x-rules
-    url: rules/university-of-zurich-rules.yml
-  - type: x-vocabulary
-    url: vocabulary/university-of-zurich-vocabulary.yml
-  - type: x-json-ld
-    url: json-ld/university-of-zurich-context.jsonld
-- aid: university-of-zurich:university-of-zurich-openid-connect-api
-  name: University of Zurich OpenID Connect API
-  description: Identity, userinfo, and session endpoints
-  humanURL: https://www.zora.uzh.ch/
-  baseURL: https://www.zora.uzh.ch/oai/request
-  tags:
-  - OpenID Connect
-  properties:
-  - type: OpenAPI
-    url: openapi/university-of-zurich-openid-connect-api-openapi.yml
-  - type: Documentation
-    url: https://www.zi.uzh.ch/en/support/identity-access/eduid-faq.html
-  - type: Signup
-    url: https://eduid.uzh.ch/linking/login
-  - type: x-openid-configuration
-    url: https://login.eduid.ch/.well-known/openid-configuration
-  - type: x-json-schema
-    url: json-schema/university-of-zurich-userinfo-schema.json
-  - type: x-json-structure
-    url: json-structure/university-of-zurich-userinfo-structure.json
-  - type: x-examples
-    url: examples/university-of-zurich-userinfo-example.json
-  - type: x-rules
-    url: rules/university-of-zurich-rules.yml
-  - type: x-vocabulary
-    url: vocabulary/university-of-zurich-vocabulary.yml
-  - type: x-json-ld
-    url: json-ld/university-of-zurich-context.jsonld
+  - type: IdentityFederation
+    url: https://metadata.aai.switch.ch/metadata.switchaai.xml
+  - type: x-conformance
+    url: conformance/university-of-zurich-conformance.yml
 common:
-  - type: CapabilityMap
-    url: capabilities/university-of-zurich-capability-edges.yml
-    name: University of Zurich Business Capability Map
-  - type: AgenticAccess
-    url: agentic-access/university-of-zurich-agentic-access.yml
-  - type: DomainSecurity
-    url: security/university-of-zurich-domain-security.yml
-  - type: Authentication
-    url: authentication/university-of-zurich-authentication.yml
   - type: Website
     url: https://www.uzh.ch/en.html
+  - type: About
+    url: https://www.uzh.ch/en/about.html
+  - type: Blog
+    url: https://www.news.uzh.ch/en.html
+  - type: Support
+    url: https://www.zi.uzh.ch/en/support.html
+  - type: PrivacyPolicy
+    url: https://www.uzh.ch/en/privacy.html
+  - type: TermsOfService
+    url: https://www.uzh.ch/en/impressum.html
+  - type: GitHubOrganization
+    url: https://github.com/uzh
   - type: GitHub
     url: https://github.com/uzh
   - type: LinkedIn
     url: https://www.linkedin.com/school/uzh
   - type: Twitter
     url: https://x.com/UZH_en
+  - type: ResearchRepository
+    url: https://www.zora.uzh.ch/
+  - type: IdentityFederation
+    url: https://metadata.aai.switch.ch/metadata.switchaai.xml
+  - type: CourseCatalog
+    url: https://courses.uzh.ch/
+  - type: ResearchComputing
+    url: https://www.zi.uzh.ch/en/teaching-and-research/science-it/computing/sciencecluster.html
+  - type: AIPolicy
+    url: https://www.uzh.ch/en/explore/basics/ai/recommendations.html
   - type: Authentication
     url: https://www.zi.uzh.ch/en/support/identity-access/eduid-faq.html
+  - type: Conformance
+    url: conformance/university-of-zurich-conformance.yml
+  - type: DomainSecurity
+    url: security/university-of-zurich-domain-security.yml
   - type: Plans
     url: plans/university-of-zurich-plans-pricing.yml
   - type: RateLimits
