@@ -202,6 +202,11 @@ apis:
   - GraphQL
   - Education Technology
   - Audience Response
+  - Open-Source
+  tags_raw:
+  - GraphQL
+  - Education Technology
+  - Audience Response
   - Open Source
   properties:
   - type: Documentation
@@ -275,6 +280,9 @@ apis:
   - type: x-conformance
     url: conformance/university-of-zurich-conformance.yml
 common:
+  - type: License
+    name: AGPL-3.0
+    url: https://github.com/uzh-bf/klicker-uzh/blob/v3/LICENSE
   - type: Website
     url: https://www.uzh.ch/en.html
   - type: About
