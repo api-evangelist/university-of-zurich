@@ -3,7 +3,7 @@ name: University of Zurich
 description: University of Zurich public developer/API footprint review for APIs.json cataloging.
 url: https://raw.githubusercontent.com/api-evangelist/university-of-zurich/refs/heads/main/review.yml
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-30'
 reviews:
   - date: '2026-06-03'
     rating: 2
@@ -41,4 +41,59 @@ reviews:
       - url: https://courses.uzh.ch/
         status: 0
         note: Course Catalogue (Vorlesungsverzeichnis) web app; no public documented API found.
----
+  - date: '2026-08-30'
+    rating: 3
+    summary: >-
+      Re-reviewed under the university pipeline's operator axis. The June review's two
+      unconfirmed endpoints were both resolved from a network that can reach uzh.ch. The ZORA
+      OAI-PMH base URL recorded in June (/oai/request) is DEAD — it returns a 404 SPA shell — and
+      the live DSpace 8.0 base URL is /server/oai/request, confirmed by a valid Identify response
+      naming repositoryName ZORA and adminEmail martin.braendle@uzh.ch. The DSpace REST API at
+      /server/api is live and open for communities and collections. Two surfaces the June review
+      missed were found: the KlickerUZH GraphQL API at api.klicker.uzh.ch, built and run by the UZH
+      Department of Banking and Finance, and the self-hosted GitLab at gitlab.uzh.ch whose v4 REST
+      API answers anonymous reads of public projects. The three OpenAPI documents held in this repo
+      were all SWITCH edu-ID's contract for https://login.eduid.ch, a shared national issuer, and
+      were removed along with everything derived from them; the UZH IdP relationship was kept and
+      re-labelled x-operator tenant because its SSO endpoints live at uzh.login.eduid.ch. UZH
+      authors no API contract of its own and publishes no OpenAPI, developer portal, llms.txt or
+      security.txt.
+    endpoints:
+      - url: https://www.zora.uzh.ch/server/oai/request?verb=Identify
+        status: 200
+        note: Live OAI-PMH 2.0 Identify; repositoryName ZORA, adminEmail martin.braendle@uzh.ch.
+      - url: https://www.zora.uzh.ch/oai/request?verb=Identify
+        status: 404
+        note: Base URL recorded in June 2026 — dead. Repaired in apis.yml.
+      - url: https://www.zora.uzh.ch/server/api
+        status: 200
+        note: DSpace 8.0 REST root, application/hal+json, dspaceName ZORA.
+      - url: https://www.zora.uzh.ch/server/api/core/communities?size=2
+        status: 200
+        note: Open, unauthenticated read of real community records.
+      - url: https://api.klicker.uzh.ch/graphql
+        status: 400
+        note: Live Apollo GraphQL endpoint; validates queries, introspection disabled in production.
+      - url: https://gitlab.uzh.ch/api/v4/projects?per_page=2
+        status: 200
+        note: Self-hosted GitLab, anonymous read of public project metadata.
+      - url: https://gitlab.uzh.ch/api/v4/version
+        status: 401
+        note: Token-gated, as expected.
+      - url: https://metadata.aai.switch.ch/metadata.switchaai.xml
+        status: 200
+        note: >-
+          SWITCHaai federation aggregate; carries entityID https://aai-idp.uzh.ch/idp/shibboleth
+          with DisplayName "University of Zurich" and SSO at uzh.login.eduid.ch.
+      - url: https://api.uzh.ch/
+        status: 0
+        note: Does not resolve.
+      - url: https://developer.uzh.ch/
+        status: 0
+        note: Does not resolve.
+      - url: https://www.uzh.ch/llms.txt
+        status: 404
+        note: No agent-directed manifest.
+      - url: https://www.uzh.ch/.well-known/security.txt
+        status: 404
+        note: No RFC 9116 security contact.

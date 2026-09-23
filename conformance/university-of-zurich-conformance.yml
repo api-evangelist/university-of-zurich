@@ -1,0 +1,107 @@
+specification: API Evangelist Conformance
+specificationVersion: '0.1'
+provider: University of Zurich
+providerId: university-of-zurich
+generated: '2026-08-30'
+method: probed
+source: live HTTP probes of University of Zurich hosts and the SWITCH AAI federation metadata
+regime: education
+description: >-
+  Domain-standard conformance for the University of Zurich, probed against the Kin Score
+  `education` regime standards list. Every entry below is evidenced by a live response
+  captured on 2026-08-30. Standards in the regime list with no evidence are recorded as
+  not_found rather than assumed — UZH publishes no LTI, OneRoster, Ed-Fi, Caliper, QTI or
+  SCIM surface that could be reached from the public internet.
+
+standards:
+- standard: oai-pmh
+  status: conformant
+  operator: institution
+  evidence:
+    url: https://www.zora.uzh.ch/server/oai/request?verb=Identify
+    status: 200
+    detail: >-
+      OAI-PMH 2.0 Identify response. repositoryName ZORA, baseURL
+      https://www.zora.uzh.ch/server/oai/request, protocolVersion 2.0, adminEmail
+      martin.braendle@uzh.ch (a uzh.ch address — the endpoint is administered by UZH),
+      repositoryIdentifier www.zora.uzh.ch, earliestDatestamp 2008-02-11T12:11:30Z,
+      granularity YYYY-MM-DDThh:mm:ssZ. An OpenAIRE CERIF 1.1 Service compatibility
+      description is embedded in the Identify response.
+  notes: >-
+    A second OAI-PMH context for OpenAIRE is served at
+    https://www.zora.uzh.ch/server/oai/openaire (verb=Identify -> 200).
+    The base URL previously recorded in apis.yml (https://www.zora.uzh.ch/oai/request)
+    returns 404 since the 2025 EPrints-to-DSpace migration and has been repaired.
+
+- standard: datacite
+  status: conformant
+  operator: institution
+  evidence:
+    url: https://www.zora.uzh.ch/server/oai/request?verb=ListMetadataFormats
+    status: 200
+    detail: >-
+      ListMetadataFormats advertises metadataPrefix values mods, oai_dc, oai_datacite,
+      marc, akaber. `oai_datacite` is the DataCite metadata schema exposed over OAI-PMH.
+
+- standard: orcid
+  status: conformant
+  operator: institution
+  evidence:
+    url: https://www.zora.uzh.ch/server/oai/request?verb=ListRecords&metadataPrefix=oai_dc
+    status: 200
+    detail: >-
+      Disseminated records carry ORCID iDs in creator metadata (observed
+      orcid.org/0000-0003-3357-2438, orcid.org/0000-0002-5927-5039,
+      orcid.org/0000-0003-2665-0995). ZORA runs DSpace 8.0, whose ORCID integration is
+      configured and populated for UZH authors.
+
+- standard: shibboleth
+  status: conformant
+  operator: tenant
+  evidence:
+    url: https://metadata.aai.switch.ch/metadata.switchaai.xml
+    status: 200
+    detail: >-
+      The SWITCHaai federation metadata aggregate contains the UZH IdP entity
+      entityID="https://aai-idp.uzh.ch/idp/shibboleth" with
+      mdui:DisplayName "University of Zurich" / "Universitat Zurich" and
+      shibmd:Scope "uzh.ch". More than 200 further uzh.ch service-provider entities
+      (gitlab.uzh.ch, ezproxy.uzh.ch, the olat.uzh.ch LMS, the exam.uzh.ch estate,
+      eduid.uzh.ch) are registered in the same aggregate.
+  operator_basis: >-
+    The entityID is UZH's own namespace and the scope is uzh.ch, but the
+    SingleSignOnService and SingleLogoutService Locations in the metadata resolve to
+    https://uzh.login.eduid.ch/idp/profile/SAML2/... — a UZH-specific hostname on
+    SWITCH's hosted edu-ID platform. UZH's users and UZH's attribute policy; SWITCH's
+    running IdP. Same shape as the EPFL entry in this catalog.
+
+- standard: saml
+  status: conformant
+  operator: tenant
+  evidence:
+    url: https://metadata.aai.switch.ch/metadata.switchaai.xml
+    status: 200
+    detail: >-
+      SAML 2.0 bindings published for the UZH IdP entity: HTTP-Redirect and HTTP-POST
+      SingleSignOnService at https://uzh.login.eduid.ch/idp/profile/SAML2/{Redirect,POST}/SSO
+      and HTTP-Redirect SingleLogoutService at
+      https://uzh.login.eduid.ch/idp/profile/SAML2/Redirect/SLO.
+
+- standard: scim
+  status: not_found
+- standard: lti
+  status: not_found
+- standard: oneroster
+  status: not_found
+- standard: ed-fi
+  status: not_found
+- standard: caliper
+  status: not_found
+- standard: qti
+  status: not_found
+- standard: crossref
+  status: not_found
+  notes: >-
+    Crossref DOIs appear inside ZORA records because they were minted by the publishers of
+    the deposited articles. UZH operates no Crossref interface of its own, so this is not
+    recorded as a UZH conformance.
