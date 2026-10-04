@@ -202,12 +202,13 @@ apis:
   - GraphQL
   - Education Technology
   - Audience Response
-  - Open-Source
+  - Open Source
   tags_raw:
   - GraphQL
   - Education Technology
   - Audience Response
   - Open Source
+  - Open-Source
   properties:
   - type: Documentation
     url: https://www.klicker.uzh.ch/
