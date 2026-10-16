@@ -2,6 +2,13 @@
   "repo": "university-of-zurich",
   "feeds": [
     {
+      "source": "https://www.news.uzh.ch/en.html",
+      "feed_url": "https://www.news.uzh.ch/en.html",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
       "source": "https://www.uzh.ch/en/about.html",
       "feed_url": "https://www.uzh.ch/en/about.html",
       "title": "",
@@ -10,5 +17,5 @@
     }
   ],
   "post_count": 0,
-  "fetched": "2026-10-03T12:30:02Z"
+  "fetched": "2026-10-10T13:15:00Z"
 }
