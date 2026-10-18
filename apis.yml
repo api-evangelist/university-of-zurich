@@ -237,6 +237,10 @@ apis:
     at the API root. The surface is live: /api/v4/projects?per_page=2 returned 200 with real project
     JSON on 2026-08-30, and /api/v4/version returned 401. Do not read the root 404 as a dead pointer.
   tags:
+  - Version Control
+  - Research Computing
+  - REST
+  tags_raw:
   - Source Control
   - Research Computing
   - REST
